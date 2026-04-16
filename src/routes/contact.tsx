@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { submitContact } from "@/server/contact";
 
 export const Route = createFileRoute("/contact")({
   component: ContactPage,
@@ -15,6 +16,7 @@ function ContactPage() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
 
   function validate() {
     const errs: Record<string, string> = {};
@@ -25,13 +27,20 @@ function ContactPage() {
     return errs;
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const errs = validate();
     setErrors(errs);
-    if (Object.keys(errs).length === 0) {
-      // in production, you'd POST this to a backend
+    if (Object.keys(errs).length > 0) return;
+
+    setSending(true);
+    try {
+      await submitContact({ data: form });
       setSubmitted(true);
+    } catch {
+      setErrors({ form: "Something went wrong. Please try again." });
+    } finally {
+      setSending(false);
     }
   }
 
@@ -40,7 +49,7 @@ function ContactPage() {
       <div className="max-w-lg mx-auto px-4 py-24 text-center animate-fade-in">
         <div className="text-5xl mb-4">✅</div>
         <h1 className="text-2xl font-bold">Message Sent!</h1>
-        <p className="mt-2 text-muted-foreground">Thanks for reaching out. We'll get back to you soon.</p>
+        <p className="mt-2 text-muted-foreground">Thanks for reaching out — we'll get back to you soon.</p>
         <button
           onClick={() => { setSubmitted(false); setForm({ name: "", email: "", message: "" }); }}
           className="mt-6 px-6 py-2 rounded-md bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity"
@@ -54,11 +63,12 @@ function ContactPage() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-12 sm:px-6 lg:px-8 animate-fade-in">
       <div className="text-center mb-10">
-        <h1 className="text-3xl sm:text-4xl font-bold">📬 Contact Us</h1>
-        <p className="mt-2 text-muted-foreground">Have a question or suggestion? We'd love to hear from you.</p>
+        <h1 className="text-3xl sm:text-4xl font-bold">📬 Talk to Us</h1>
+        <p className="mt-2 text-muted-foreground">Got a question, idea, or just want to say hi? We're all ears.</p>
       </div>
 
       <form onSubmit={handleSubmit} className="bg-card border border-border rounded-xl p-6 sm:p-8 space-y-5">
+        {errors.form && <p className="text-sm text-destructive text-center">{errors.form}</p>}
         <div>
           <label className="block text-sm font-medium mb-1">Name</label>
           <input
@@ -88,7 +98,7 @@ function ContactPage() {
           <textarea
             value={form.message}
             onChange={(e) => setForm({ ...form, message: e.target.value })}
-            placeholder="Write your message here..."
+            placeholder="What's on your mind?"
             rows={5}
             className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none"
           />
@@ -97,9 +107,10 @@ function ContactPage() {
 
         <button
           type="submit"
-          className="w-full py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+          disabled={sending}
+          className="w-full py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity disabled:opacity-60"
         >
-          Send Message
+          {sending ? "Sending..." : "Send Message"}
         </button>
       </form>
 

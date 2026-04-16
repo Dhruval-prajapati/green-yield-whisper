@@ -13,42 +13,42 @@ export const Route = createFileRoute("/schemes")({
 const schemes = [
   {
     name: "PM-KISAN",
-    desc: "Direct income support of ₹6,000/year to small and marginal farmer families in three equal installments.",
+    desc: "Get ₹6,000/year directly in your bank — three installments, no middlemen. For small and marginal farmer families.",
     link: "https://pmkisan.gov.in/",
   },
   {
     name: "PM Fasal Bima Yojana",
-    desc: "Crop insurance scheme providing financial support to farmers suffering crop loss due to natural calamities.",
+    desc: "Crop insurance that actually helps. If floods, drought, or hail destroy your harvest, this scheme has your back.",
     link: "https://pmfby.gov.in/",
   },
   {
     name: "Kisan Credit Card (KCC)",
-    desc: "Provides affordable short-term credit to farmers for crop production, post-harvest expenses, and consumption.",
+    desc: "Need quick credit for seeds or fertilizer? KCC gives you affordable short-term loans without the bank runaround.",
     link: "https://www.nabard.org/content.aspx?id=593",
   },
   {
     name: "Soil Health Card Scheme",
-    desc: "Free soil testing and health cards to help farmers use the right amount of nutrients for better productivity.",
+    desc: "Free soil testing — find out exactly what your land needs. No more guessing on fertilizer amounts.",
     link: "https://soilhealth.dac.gov.in/",
   },
   {
     name: "eNAM (National Agriculture Market)",
-    desc: "Online trading platform for agricultural commodities, connecting farmers directly to buyers across India.",
+    desc: "Sell your produce online to buyers across India. Better prices, more transparency, less dependence on local mandis.",
     link: "https://enam.gov.in/",
   },
   {
     name: "Paramparagat Krishi Vikas Yojana",
-    desc: "Promotes organic farming through cluster approach, providing ₹50,000/ha over 3 years for organic inputs.",
+    desc: "Going organic? Get ₹50,000/hectare over 3 years for organic inputs, certification, and training.",
     link: "https://pgsindia-ncof.gov.in/PKVY/Index.aspx",
   },
   {
     name: "PM Krishi Sinchai Yojana",
-    desc: "Aims to expand cultivable area under irrigation with 'Har Khet Ko Pani' and promote water-use efficiency.",
+    desc: "'Har Khet Ko Pani' — this scheme helps you get irrigation infrastructure and save water with micro-irrigation.",
     link: "https://pmksy.gov.in/",
   },
   {
     name: "Agriculture Infrastructure Fund",
-    desc: "₹1 lakh crore financing facility for post-harvest management and community farming assets.",
+    desc: "₹1 lakh crore for post-harvest storage, cold chains, and processing units. Apply through your bank or FPO.",
     link: "https://agriinfra.dac.gov.in/",
   },
 ];
@@ -58,7 +58,7 @@ function SchemesPage() {
     <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8 animate-fade-in">
       <div className="text-center mb-10">
         <h1 className="text-3xl sm:text-4xl font-bold">📋 Government Schemes</h1>
-        <p className="mt-2 text-muted-foreground">Indian agriculture schemes to support and empower farmers.</p>
+        <p className="mt-2 text-muted-foreground">Money, insurance, loans — the government has programs for you. Here's what's available.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -70,7 +70,7 @@ function SchemesPage() {
               href={s.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block mt-4 text-sm font-medium text-primary hover:underline"
+              className="inline-block mt-4 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
             >
               Learn More →
             </a>

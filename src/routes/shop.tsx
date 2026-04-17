@@ -118,10 +118,18 @@ function ShopPage() {
             <img
               src={p.img}
               alt={p.name}
-              className="w-full h-48 object-cover"
+              className="w-full h-48 object-contain bg-white p-2"
               loading="lazy"
               width={400}
               height={300}
+              onError={(e) => {
+                // fallback if Amazon blocks the hotlinked image
+                const t = e.currentTarget;
+                if (!t.dataset.fallback) {
+                  t.dataset.fallback = "1";
+                  t.src = `https://placehold.co/400x300/16a34a/ffffff?text=${encodeURIComponent(p.category)}`;
+                }
+              }}
             />
             <div className="p-4 flex-1 flex flex-col">
               <span className="text-xs font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded self-start">

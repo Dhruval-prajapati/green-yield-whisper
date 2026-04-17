@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WeatherRouteImport } from './routes/weather'
 import { Route as ShopRouteImport } from './routes/shop'
 import { Route as SchemesRouteImport } from './routes/schemes'
 import { Route as PredictionRouteImport } from './routes/prediction'
@@ -17,6 +18,11 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const WeatherRoute = WeatherRouteImport.update({
+  id: '/weather',
+  path: '/weather',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ShopRoute = ShopRouteImport.update({
   id: '/shop',
   path: '/shop',
@@ -61,6 +67,7 @@ export interface FileRoutesByFullPath {
   '/prediction': typeof PredictionRoute
   '/schemes': typeof SchemesRoute
   '/shop': typeof ShopRoute
+  '/weather': typeof WeatherRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -70,6 +77,7 @@ export interface FileRoutesByTo {
   '/prediction': typeof PredictionRoute
   '/schemes': typeof SchemesRoute
   '/shop': typeof ShopRoute
+  '/weather': typeof WeatherRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,6 +88,7 @@ export interface FileRoutesById {
   '/prediction': typeof PredictionRoute
   '/schemes': typeof SchemesRoute
   '/shop': typeof ShopRoute
+  '/weather': typeof WeatherRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,6 +100,7 @@ export interface FileRouteTypes {
     | '/prediction'
     | '/schemes'
     | '/shop'
+    | '/weather'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,6 +110,7 @@ export interface FileRouteTypes {
     | '/prediction'
     | '/schemes'
     | '/shop'
+    | '/weather'
   id:
     | '__root__'
     | '/'
@@ -109,6 +120,7 @@ export interface FileRouteTypes {
     | '/prediction'
     | '/schemes'
     | '/shop'
+    | '/weather'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -119,10 +131,18 @@ export interface RootRouteChildren {
   PredictionRoute: typeof PredictionRoute
   SchemesRoute: typeof SchemesRoute
   ShopRoute: typeof ShopRoute
+  WeatherRoute: typeof WeatherRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/weather': {
+      id: '/weather'
+      path: '/weather'
+      fullPath: '/weather'
+      preLoaderRoute: typeof WeatherRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/shop': {
       id: '/shop'
       path: '/shop'
@@ -183,6 +203,7 @@ const rootRouteChildren: RootRouteChildren = {
   PredictionRoute: PredictionRoute,
   SchemesRoute: SchemesRoute,
   ShopRoute: ShopRoute,
+  WeatherRoute: WeatherRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

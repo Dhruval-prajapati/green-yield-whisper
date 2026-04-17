@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import heroImg from "@/assets/hero-farm.jpg";
-import WeatherMap from "@/components/WeatherMap";
+
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -57,6 +57,12 @@ function HomePage() {
             >
               Learn More
             </Link>
+            <Link
+              to="/weather"
+              className="px-6 py-3 rounded-lg bg-secondary text-secondary-foreground font-semibold hover:opacity-90 transition-opacity"
+            >
+              Live Weather Map
+            </Link>
           </div>
         </div>
       </section>
@@ -80,8 +86,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* weather map section */}
-      <WeatherMap />
 
       {/* breaking news */}
       <section className="bg-agro-green-light py-16">

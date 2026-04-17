@@ -86,8 +86,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* weather map section */}
-      <WeatherMap />
 
       {/* breaking news */}
       <section className="bg-agro-green-light py-16">

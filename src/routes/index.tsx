@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import heroImg from "@/assets/hero-farm.jpg";
-import WeatherMap from "@/components/WeatherMap";
+
 
 export const Route = createFileRoute("/")({
   component: HomePage,

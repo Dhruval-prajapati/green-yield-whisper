@@ -34,6 +34,12 @@ export const Route = createRootRoute({
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "AgroSmart — Smart Agriculture Platform" },
       { name: "description", content: "AI-powered crop prediction, agriculture news, government schemes, and farming tools for Indian farmers." },
+      { property: "og:title", content: "AgroSmart — Smart Agriculture Platform" },
+      { name: "twitter:title", content: "AgroSmart — Smart Agriculture Platform" },
+      { property: "og:description", content: "AI-powered crop prediction, agriculture news, government schemes, and farming tools for Indian farmers." },
+      { name: "twitter:description", content: "AI-powered crop prediction, agriculture news, government schemes, and farming tools for Indian farmers." },
+      { name: "twitter:card", content: "summary" },
+      { property: "og:type", content: "website" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

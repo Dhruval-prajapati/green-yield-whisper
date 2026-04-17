@@ -114,16 +114,11 @@ function ContactPage() {
         </button>
       </form>
 
-      <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center text-sm">
+      <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-6 text-center text-sm">
         <div className="p-4 bg-muted rounded-xl">
           <div className="text-2xl mb-2">📧</div>
           <p className="font-medium">Email</p>
           <p className="text-muted-foreground">info@agrosmart.in</p>
-        </div>
-        <div className="p-4 bg-muted rounded-xl">
-          <div className="text-2xl mb-2">📞</div>
-          <p className="font-medium">Phone</p>
-          <p className="text-muted-foreground">+91 98765 43210</p>
         </div>
         <div className="p-4 bg-muted rounded-xl">
           <div className="text-2xl mb-2">📍</div>

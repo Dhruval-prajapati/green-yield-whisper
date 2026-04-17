@@ -17,7 +17,14 @@ const cropTypes = ["Rice", "Wheat", "Cotton", "Sugarcane", "Maize", "Soybean", "
 
 function PredictionPage() {
   const [form, setForm] = useState({ temp: "", rain: "", humidity: "", soil: "", crop: "", location: "" });
-  const [result, setResult] = useState<{ score: number; level: string; msg: string } | null>(null);
+  const [result, setResult] = useState<{
+    score: number;
+    level: string;
+    msg: string;
+    confidence?: number;
+    probabilities?: { label: string; value: number }[];
+    modelInfo?: { type: string; trees: number; accuracy: number };
+  } | null>(null);
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
@@ -108,7 +115,14 @@ function PredictionPage() {
 
       {result && (
         <div className="mt-8 bg-card border border-border rounded-xl p-6 sm:p-8 animate-fade-in">
-          <h2 className="text-xl font-bold mb-4">Prediction Result</h2>
+          <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+            <h2 className="text-xl font-bold">Prediction Result</h2>
+            {result.modelInfo && (
+              <span className="text-xs px-2 py-1 rounded-full bg-primary/10 text-primary font-medium">
+                🤖 {result.modelInfo.type} · {result.modelInfo.trees} trees · {result.modelInfo.accuracy}% acc
+              </span>
+            )}
+          </div>
           <div className="flex items-center gap-4 mb-4">
             <div className="w-20 h-20 rounded-full bg-muted flex items-center justify-center">
               <span className="text-2xl font-bold text-primary">{result.score}%</span>
@@ -116,11 +130,31 @@ function PredictionPage() {
             <div>
               <p className={`text-2xl font-bold ${levelColor}`}>{result.level}</p>
               <p className="text-muted-foreground text-sm mt-1">{result.msg}</p>
+              {result.confidence !== undefined && (
+                <p className="text-xs text-muted-foreground mt-1">Model confidence: {result.confidence}%</p>
+              )}
             </div>
           </div>
           <div className="h-3 rounded-full bg-muted overflow-hidden">
             <div className="h-full rounded-full bg-primary transition-all duration-700" style={{ width: `${result.score}%` }} />
           </div>
+
+          {result.probabilities && (
+            <div className="mt-6">
+              <p className="text-sm font-medium mb-2">Class probabilities</p>
+              <div className="space-y-2">
+                {result.probabilities.map((p) => (
+                  <div key={p.label} className="flex items-center gap-3 text-sm">
+                    <span className="w-20 text-muted-foreground">{p.label}</span>
+                    <div className="flex-1 h-2 rounded-full bg-muted overflow-hidden">
+                      <div className="h-full bg-primary/70" style={{ width: `${p.value}%` }} />
+                    </div>
+                    <span className="w-10 text-right text-muted-foreground">{p.value}%</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>

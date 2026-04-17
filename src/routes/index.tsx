@@ -57,6 +57,12 @@ function HomePage() {
             >
               Learn More
             </Link>
+            <Link
+              to="/weather"
+              className="px-6 py-3 rounded-lg bg-secondary text-secondary-foreground font-semibold hover:opacity-90 transition-opacity"
+            >
+              Live Weather Map
+            </Link>
           </div>
         </div>
       </section>
